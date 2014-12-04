@@ -13,7 +13,16 @@ def number():
         else:
             print "Invalid input."
             continue
-    
+"""
+def like():
+    for fruit in the_list:
+        print "Do you like %ss?" % fruit
+        if True:
+            continue
+        elif False:
+            #remove
+    return None
+"""
 the_list = [u"Apples", u"Pears", u"Oranges", u"Peaches"]
 print the_list
 
@@ -32,3 +41,22 @@ for fruit in the_list:
         print fruit,
 else:
     print "\n"
+
+print the_list
+del the_list[-1]
+print the_list
+
+flag = True
+while flag:
+    temp = raw_input("Select a fruit from the list to delete. ")
+    temp = temp.title()
+    if temp in the_list:
+        flag = False
+        the_list.remove(temp)
+    else:
+        print "Invalid input."
+        continue
+##try with a doubled list, deleted all instances
+
+
+    
