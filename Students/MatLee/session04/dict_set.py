@@ -12,6 +12,13 @@ print a
 print "cake" in stuff
 print "Mango" in a
 
+b = range(16)
+c = []
+for num in b:
+    c.append(hex(num)[2:])
+dec_hex = dict(zip(b, c))
+print dec_hex
+
 
 things = stuff.items()
 for b in range(len(things)):  
