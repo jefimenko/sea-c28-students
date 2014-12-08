@@ -49,4 +49,4 @@ while analysis.has_key((temp[0], temp[1])):
     temp[0], temp[1] = temp[1], out[-1]
 
 out[0] = out[0].title()
-print out
+print ' '.join(out)
