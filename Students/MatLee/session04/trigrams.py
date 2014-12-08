@@ -22,11 +22,20 @@ try:
 except IndexError:
     print temp
 
+# Sequences of three words are tabulated as tuples of leading two words as
+#  keys with a list holding all third words as the corresponding value.
+# Grow analysis data, create new entries in the dictionary as needed.
 for word in out[2:]:
-    analysis.setdefault((temp[0], temp[1]), word)
+    try:
+        analysis[(temp[0], temp[1])].append(word)
+    except KeyError:
+        analysis[(temp[0], temp[1])] = [word]
     temp[0], temp[1] = temp[1], temp[0]
-    print temp
     temp[1] = word
-    print temp
 
-print analysis
+"""
+for iden, thing in analysis.iteritems():
+    if len(thing) > 1:
+        print iden, thing
+"""
+
