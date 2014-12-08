@@ -1,16 +1,22 @@
 from io import open
-from random import choice
+import random
 
-with open('sherlock_small.txt') as f:
+FILE_NAME = 'sherlock_small.txt'
+
+with open(FILE_NAME) as f:
     data = f.read()
 
-# Split the text assuming only '--', white space, 
-# or '\n' are used to delimit words. Punctuation is included in analysis.
-data = data.split('--')
+# Split the text assuming only white space is used to delimit words.
+# Punctuation is included in analysis and two consecutive \n characters
+# are interpreted as paragraph separations.
+
+data = data.split('\n')
 
 for chunk in data[:]:
     data.remove(chunk)
     data += chunk.split()
+    data.append('\n')
+
 
 analysis = dict()
 
@@ -34,19 +40,18 @@ for word in data[2:]:
     temp[0], temp[1] = temp[1], temp[0]
     temp[1] = word
 
-"""
-for iden, thing in analysis.iteritems():
-    if len(thing) > 1:
-        print iden, thing
-"""
 
-temp = choice(analysis.keys())
+temp = random.choice(analysis.keys())
 temp = [temp[0], temp[1]]
 out = temp[:]
 
 while analysis.has_key((temp[0], temp[1])):
-    out.append(choice(analysis[(temp[0], temp[1])]))
-    temp[0], temp[1] = temp[1], out[-1]
+   # print analysis[(temp[0], temp[1])]
+    n = random.choice(analysis[(temp[0], temp[1])])
+    out.append(n)
+    temp[0], temp[1] = temp[1], n
+
 
 out[0] = out[0].title()
-print ' '.join(out)
+for word in out:
+    print word,
