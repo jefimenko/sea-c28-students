@@ -1,6 +1,7 @@
 from io import open
 import random
 
+#FILE_NAME = 'pg28659.txt'
 FILE_NAME = 'sherlock_small.txt'
 
 with open(FILE_NAME) as f:
@@ -43,15 +44,16 @@ for word in data[2:]:
 
 temp = random.choice(analysis.keys())
 temp = [temp[0], temp[1]]
-out = temp[:]
+print temp[0].title(),
+print temp[1],
 
 while analysis.has_key((temp[0], temp[1])):
-   # print analysis[(temp[0], temp[1])]
-    n = random.choice(analysis[(temp[0], temp[1])])
-    out.append(n)
+    n = random.choice(analysis[(temp[0], temp[1])]) # doesn't perform well for large files...
+    print n,
     temp[0], temp[1] = temp[1], n
 
-
+"""
 out[0] = out[0].title()
 for word in out:
     print word,
+"""
