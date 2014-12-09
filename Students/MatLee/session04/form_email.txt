@@ -1,0 +1,3 @@
+ Dear %s,
+
+    Thank you for your generous contribution of $%.2f!

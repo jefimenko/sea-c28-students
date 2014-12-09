@@ -91,6 +91,7 @@ def report(data):
     print
     print u'%-20s%-15s%-16s%-29s'% header
     info = data.items()
+    print info[0][1]
     info = sorted(info, key=lambda c: sum(c[1]))
     info = info[::-1]
 
