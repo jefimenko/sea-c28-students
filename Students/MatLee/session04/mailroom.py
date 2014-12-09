@@ -1,5 +1,4 @@
 import io
-#import math
 
 HISTORY = u'mailroom.txt'
 FORM_EMAIL = u'form_email.txt'
@@ -37,15 +36,17 @@ def send(data):
 
 
 def report(data):
+    header = (u'|Name:', u'|Total donations:', 
+              u'|# of donations:', u'|Average amount per donation:')
+    print u'%-25s%-17s%-16s%-12s'% header
     for donor, amounts, in data.iteritems():
         total = sum(amounts)
         donations = len(amounts)
-        
-        print u'Name: Total donations: # of donations: Average amount per donation:'
-        print donor,
-        print total,
-        print donations,
-        print total/donations
+
+        print u' %-26s %13.2f %15i %28.2f' % (
+            donor, total, donations, total/donations
+            )
+
     return
 
 
