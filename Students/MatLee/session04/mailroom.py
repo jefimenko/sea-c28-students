@@ -1,37 +1,72 @@
-HISTORY = 'mailroom.txt'
+import io
+
+HISTORY = u'mailroom.txt'
+FORM_EMAIL = u'form_email.txt'
 
 def main():
+    data = read_info()
+    print data
+    
     while True:
-        print '(1) Send a Thank You.'
-        print '(2) Create a Report.'
-        print '(3) Exit program.'
-        a = safe_input('Which would you like to do? ')
-        if 'exit program' in a.lower():
-            end()
-        elif 'create a report' in a.lower():
-            report()
-        elif 'send a thank you' in a.lower():
-            send()
+        print u'   Main Menu:'
+        print u'(1) Send a Thank You.'
+        print u'(2) Create a Report.'
+        print u'(3) Exit program.'
+        a = safe_input(u'   Which would you like to do? ')
+        if u'exit program' in a.lower():
+            end(data)
+        elif u'create a report' in a.lower():
+            report(data)
+        elif u'send a thank you' in a.lower():
+            send(data)
+        else:
+            print u'   Invalid input, please choose an entry from the menu.'
 
 
-def safe_input(display=""):
+def safe_input(display=u''):
     try:
         return raw_input(display)
     except (EOFError, KeyboardInterrupt):
         return None
 
 
-def send():
+def send(data):
     print "thank you!"
     return
 
 
-def report():
-    print "report"
+def report(data):
+    print data
     return
 
 
-def end():
+# Read previously saved information out of a file into a dictionary.
+# Return an empty dictionary if there is no existing information.
+def read_info():
+    data = dict()
+    try:
+        f = open(HISTORY)
+    except IOError:
+        f.close()
+        return data
+    
+    for line in f.readlines():
+        temp = line.strip()
+        temp = temp.split(', ')
+        data[temp[0]] = temp[1:]
+    f.close()
+    return data
+
+
+def save_info(data):
+    print 'save!'
+    print HISTORY
+    return
+
+
+def end(data):
+    save_info(data)
     quit()
+
 
 main()
