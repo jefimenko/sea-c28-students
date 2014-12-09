@@ -47,20 +47,31 @@ def send(data):
         else:
             # Won't worry about validating names for now
             # Create a new entry if non-existent
-            amount = data.setdefault(b, [])
-            amount.append(valid_d(data))
-            email(b, amount[-1])
+            amount = valid_d(data)
+            if not amount:
+                return
+            new = data.setdefault(b, [])
+            new.append(amount)
+            email(b, new[-1])
             return
 
-
+# Prompt the user and take input until a positive number is given
 def valid_d(data):
     while True:
+        print
+        print u'(1) Input donation amount in dollars.'
+        print u'(2) Return to main menu.'
+        a = safe_input(u'  $')
+        if 'return to main menu' in a.lower():
+            return
+        
         try:
-            a = float(safe_input(u'   Input donation amount in dollars: '))
+            a = float(a)
         except ValueError:
-            print u'   Invalid input.'
+            print 'u   Invalid input.'
             continue
-        if a:
+
+        if a and (a > 0):
             return a
 
 
@@ -78,12 +89,16 @@ def report(data):
     header = (u'|Name:', u'|Total donations:', 
               u'|# of donations:', u'|Average amount per donation:')
     print
-    print u'%-25s%-15s%-16s%-29s'% header
-    for donor, amounts, in data.iteritems():
+    print u'%-20s%-15s%-16s%-29s'% header
+    info = data.items()
+    info = sorted(info, key=lambda c: sum(c[1]))
+    info = info[::-1]
+
+    for donor, amounts, in info:
         total = sum(amounts)
         donations = len(amounts)
 
-        print u' %-25s%15.2f%16i%29.2f' % (
+        print u' %-20s%15.2f%16i%29.2f' % (
             donor, total, donations, total/donations
             )
 
@@ -99,7 +114,6 @@ def read_info():
         f.close()
         return dict()
     data = eval(f.read())
-    print data
     f.close()
     
     return data
