@@ -1,4 +1,5 @@
 import io
+#import math
 
 HISTORY = u'mailroom.txt'
 FORM_EMAIL = u'form_email.txt'
@@ -36,7 +37,15 @@ def send(data):
 
 
 def report(data):
-    print data
+    for donor, amounts, in data.iteritems():
+        total = sum(amounts)
+        donations = len(amounts)
+        
+        print u'Name: Total donations: # of donations: Average amount per donation:'
+        print donor,
+        print total,
+        print donations,
+        print total/donations
     return
 
 
@@ -53,14 +62,16 @@ def read_info():
     for line in f.readlines():
         temp = line.strip()
         temp = temp.split(', ')
+        for x in range(1, len(temp)):
+            temp[x] = float(temp[x])
         data[temp[0]] = temp[1:]
+    
     f.close()
     return data
 
 
 def save_info(data):
-    print 'save!'
-    print HISTORY
+    print 'save to HISTORY! (not, actually)'
     return
 
 
