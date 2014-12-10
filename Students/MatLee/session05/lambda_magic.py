@@ -1,7 +1,14 @@
 def function_builder(n):
-    f = []
-    for i in range(n):
-        f.append(i)
-    return f
 
-print function_builder(12)
+    l = []
+    for s in range(n):
+        l.append(lambda a, b=s: a + b)
+    return l
+
+
+c = function_builder(12)
+print c[0](1)
+print c[11](12)
+
+for b in c:
+    print b(3)
