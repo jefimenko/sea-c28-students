@@ -5,13 +5,14 @@ import sys
 def save_file(copy, f):
     f.close()
     while True:
-        a = raw_input(u'Would you like to overwrite existing file,\n'
-                      u'or create a new file? ')
-        if u'overwrite' in a.lower():
+        a = raw_input(u'Would you like to overwrite current file,\n'
+                      u'or create a new file/overwrite a different file? ')
+        if u'overwrite current file' in a.lower():
             writer(filename, copy)
             return
-        elif u'create a new file' in a.lower():
-            b = raw_input(u'Please name the new file: ')
+        elif (u'create a new file' in a.lower() 
+              or u'overwrite a different file' in a.lower()):
+            b = raw_input(u'Please name the new/overwrite file: ')
             writer(b + '.txt', copy)
             return
 
@@ -32,13 +33,14 @@ except IndexError:
 try:
     f = open(filename, 'r')
 except IOError:
-    f.close()
-    print f.closed
+    print u'File not found. Bye.'
+    quit()
 
 
 copy = []
 for line in f:
-    copy.append(line.strip())
+    copy.append(line)
+copy = map(str.strip, copy)
 
 save_file(copy, f)
 
