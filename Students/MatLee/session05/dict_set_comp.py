@@ -12,4 +12,9 @@ print stuff.format(**food_prefs)
 # Create dictionary of numbers, as keys, and hexadecimal equivalents.
 # Hex values are represented as strings, omitting leading characters.
 d = dict([(x, hex(x)[2:]) for x in range(16)])
+print 'd'
 print d
+
+j = {x: hex(x)[2:] for x in range(16)}
+print 'j'
+print j
