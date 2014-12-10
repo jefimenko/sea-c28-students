@@ -30,3 +30,5 @@ for i in range(2, 5):
     s_all = s_all.union({x for x in range(21) if not (x % i)})
 print s_all
 
+d_all = {x for i in range(2, 5) for x in range(21) if not (x % i)}
+print d_all
