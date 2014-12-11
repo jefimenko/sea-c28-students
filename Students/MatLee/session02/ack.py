@@ -17,4 +17,8 @@ if __name__ == "__main__":
         for x in range(5):
             assert ackermann(y, x) == m[y][x]
         
+<<<<<<< HEAD
     print u"All Tests Pass."
+=======
+    print "All Tests Pass."
+>>>>>>> 3673785becdfd83be0b12c217583a222122c9c9a
