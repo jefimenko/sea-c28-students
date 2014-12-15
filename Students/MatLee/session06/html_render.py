@@ -43,3 +43,21 @@ class P(Element):
     opening_tag = u'<p>'
     closing_tag = u'</p>'
 
+
+class Head(Element):
+    opening_tag = u'<head>'
+    closing_tag = u'</head>'
+
+    
+class OneLineTag(Element):
+    
+    def render(self, file_out, ind=u'', depth=1):
+        file_out.write( u'\n' + ind*(depth-1) + self.opening_tag )
+        for item in self.content:
+            file_out.write(item)
+        file_out.write( self.closing_tag )
+
+
+class Title(OneLineTag):
+    opening_tag = u'<title>'
+    closing_tag = u'</title>'
