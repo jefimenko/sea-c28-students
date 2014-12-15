@@ -1,24 +1,32 @@
 class Element(object):
-    opening_tag = u''
-    closing_tag = u''
+    opening_tag = u'<>'
+    closing_tag = u'</>'
     
-    def __init__(self):
+    def __init__(self, text=u''):
         self.content = []
+        if text:
+            self.content.append(text)
 
-    def render(self, file_out, ind=u''):
+    def render(self, file_out, ind=u'', depth=1):
         display = []
+        file_out.write( u'\n' + ind*(depth-1) + self.opening_tag )
         for item in self.content:
             if isinstance(item, Element):
-                display += item.render(item, file_out, ind+=ind).split('\n')
+                item.render(file_out, ind, depth+1)
             else:
-                display.append(ind + item)
+                file_out.write( u'\n' + ind*depth+item )
 
-        all_out = [self.opening_tag] + display + [self.closing_tag]
-        print u'\n'.join(all_out)
-        return display
+        file_out.write( u'\n' + ind*(depth-1) + self.closing_tag )
+        
+        #if depth is 1:
+        #    file_out.write(u'\n'.join(display))
+
+        #return display
+
 
     def append(self, item):
         self.content.append(item)
+        #print self.content
 
 
 class Html(Element):
@@ -34,3 +42,4 @@ class Body(Element):
 class P(Element):
     opening_tag = u'<p>'
     closing_tag = u'</p>'
+
