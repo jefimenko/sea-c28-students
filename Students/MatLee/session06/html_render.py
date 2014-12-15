@@ -2,10 +2,17 @@ class Element(object):
     opening_tag = u'<>'
     closing_tag = u'</>'
     
-    def __init__(self, text=u''):
+    def __init__(self, text=u'', **kwargs):
         self.content = []
         if text:
             self.content.append(text)
+        if kwargs:
+            print kwargs
+            self.opening_tag = self.opening_tag[:-1]
+            for key, value in kwargs.iteritems():
+                self.opening_tag += u' {style}={options}'.format(style=key, options=value)
+            self.opening_tag += u'>'
+
 
     def render(self, file_out, ind=u'', depth=1):
         display = []
@@ -51,6 +58,8 @@ class Head(Element):
     
 class OneLineTag(Element):
     
+    # Print an element in a single line,
+    # even if element contains more than one string.
     def render(self, file_out, ind=u'', depth=1):
         file_out.write( u'\n' + ind*(depth-1) + self.opening_tag )
         for item in self.content:
