@@ -7,12 +7,19 @@ class Element(object):
         if text:
             self.content.append(text)
         if kwargs:
-            self.opening_tag = self.opening_tag[:-1]
+            self_closing = self.opening_tag[-2] == u'/'
+            if self_closing:
+                self.opening_tag = self.opening_tag[:-3]
+            else:
+                self.opening_tag = self.opening_tag[:-1]
             for key, value in kwargs.iteritems():
                 self.opening_tag += u' {style}="{options}"'.format(
                     style=key,
                     options=value)
-            self.opening_tag += u'>'
+            if self_closing:
+                self.opening_tag += u' />'
+            else:
+                self.opening_tag += u'>'
 
 
     def render(self, file_out, ind=u'', depth=1, new_line=u'\n'):
@@ -33,6 +40,10 @@ class Element(object):
 class Html(Element):
     opening_tag = u'<html>'
     closing_tag = u'</html>'
+
+    def render(self, file_out, ind=u'', depth=1):
+        file_out.write(u'<!DOCTYPE html>')
+        Element.render(self, file_out, ind, depth)
 
 
 class Body(Element):
@@ -87,15 +98,19 @@ class H(OneLineTag):
 
 
 class SelfClosingTag(Element):
-    only_tag = u'< />'
+    opening_tag = u'< />'
+    closing_tag = None
 
     def render(self, file_out, ind=u'', depth=1):
-        file_out.write( u'\n' + ind*(depth-1) + self.only_tag )
+        file_out.write( u'\n' + ind*(depth-1) + self.opening_tag )
         for item in self.content:
             file_out.write(item)
 
 class Hr(SelfClosingTag):
-    only_tag = u'<hr />'
+    opening_tag = u'<hr />'
 
 class Br(SelfClosingTag):
-    only_tag = u'<br />'
+    opening_tag = u'<br />'
+
+class Meta(SelfClosingTag):
+    opening_tag = u'<meta />'
