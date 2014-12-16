@@ -47,6 +47,14 @@ class Head(Element):
     opening_tag = u'<head>'
     closing_tag = u'</head>'
 
+class Ul(Element):
+    opening_tag = u'<ul>'
+    closing_tag = u'</ul>'
+
+class Li(Element):
+    opening_tag = u'<li>'
+    closing_tag = u'</li>'
+
 
 class OneLineTag(Element):
 
@@ -55,7 +63,7 @@ class OneLineTag(Element):
     # Assumes there are no tags in content.
     def render(self, file_out, ind=u'', depth=1):
         file_out.write(u'\n' + ind*(depth-1))
-        Element.render(self, file_out, u'', 1, new_line=u'')
+        Element.render(self, file_out, ind=u'', depth=1, new_line=u'')
 
 class Title(OneLineTag):
     opening_tag = u'<title>'
@@ -68,6 +76,14 @@ class A(OneLineTag):
     def __init__(self, link, content):
         Element.__init__(self, text=content, href=link)
 
+class H(OneLineTag):
+    opening_tag = u'<h'
+    closing_tag = u'</h'
+
+    def __init__(self, size, content):
+        Element.__init__(self, content)
+        self.opening_tag += str(size)+u'>'
+        self.closing_tag += str(size)+u'>'
 
 
 class SelfClosingTag(Element):
