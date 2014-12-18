@@ -31,8 +31,8 @@ class IterateMe_2(object):
     returns the sequence of numbers from zero to 4
     ( like xrange(4) )
     """
-    def __init__(self, stop=5):
-        self.current = -1
+    def __init__(self, start, stop, step=1):
+        self.current = start - 1
         self.stop = stop
     def __iter__(self):
         return self
@@ -49,5 +49,16 @@ if __name__ == "__main__":
 
     print "first version"
     for i in IterateMe_1():
+        print i
+
+    print u'second version'
+    it = IterateMe_2(2,20,2)
+    for i in it:
+        if i > 10: break
+        print i
+
+    print u'break'
+
+    for i in it:
         print i
 
