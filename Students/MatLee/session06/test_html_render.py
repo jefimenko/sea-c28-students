@@ -63,6 +63,7 @@ def test_content_tags():
 
     f.reset()
     assert f.read() == open(u'content_tags_test.html', 'r').read()
+    f.close()
 
 
 def test_E_attributes():
@@ -75,6 +76,7 @@ def test_E_attributes():
 
     f.reset()
     assert f.read() == open(u'html_E_tag_attributes_test.html', 'r').read()
+    f.close()
 
 
 def test_one_liners():
@@ -95,10 +97,26 @@ def test_one_liners():
     page.render(f, u'    ')
 
     f.reset()
-
     assert f.read() == open(u'one_liners_test.html', 'r').read()
+    f.close()
 
 
-# Self closing
-# Hr
-# Br Meta
+def test_self_closing():
+    f = cStringIO.StringIO()
+
+    page = hr.Html()
+    body = hr.Body()
+    body.append(hr.Meta(options=u"things"))
+    body.append(hr.Br())
+    body.append(hr.Hr())
+    
+    page.append(body)
+
+    page.render(f, u'    ')
+
+    f.reset()
+    assert f.read() == open(u'self_closing_test.html', 'r').read()
+    f.close()
+
+    
+
