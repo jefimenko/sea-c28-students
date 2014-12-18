@@ -2,6 +2,9 @@ class Element(object):
     opening_tag = u'<>'
     closing_tag = u'</>'
 
+    # Construct an html element.
+    # Keyword arguments are interpreted and rendered as
+    # [key]="values" for each argument given.
     def __init__(self, text=u'', **kwargs):
         self.content = []
         if text:
@@ -21,7 +24,9 @@ class Element(object):
             else:
                 self.opening_tag += u'>'
 
-
+    # Render information in html element in a nicely formatted way.
+    # Indentation is determined by keyword argument 'ind', while new_line
+    # allows an element to be rendered in one line if given an empty string.
     def render(self, file_out, ind=u'', depth=1, new_line=u'\n'):
         display = []
         file_out.write( new_line + ind*(depth-1) + self.opening_tag )
