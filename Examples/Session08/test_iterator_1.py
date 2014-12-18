@@ -10,28 +10,32 @@ def test_def_start():
     assert numbers == result
 
 def test_step_size():
-    numbers = [thing for thing in IterateMe_2(2,20, 1)]
-    result = [thing for thing in xrange(2, 20, 1)]
+    numbers = [thing for thing in IterateMe_2(2,20, 2)]
+    result = [thing for thing in xrange(2, 20, 2)]
+
+    assert numbers == result
+
+def test_decreasing():
+    numbers = [thing for thing in IterateMe_2(2, 20, -2)]
+    result = [thing for thing in xrange(2, 20, -2)]
 
     assert numbers == result
 
 def test_reset():
-    me = IterateMe_2(2, 20)
-    imp = xrange(2, 20)
 
     def iter_wrapper(iterator):
         def looper(stop=8):
             a = []
             for thing in iterator:
-                if thing > stop: break
                 a.append(thing)
+                if thing > stop: break
             for thing in iterator:
                 a.append(thing)
             return a
         return looper
 
-    me = iter_wrapper(me)
-    imp = iter_wrapper(imp)
+    me = iter_wrapper(IterateMe_2(2, 20))
+    imp = iter_wrapper(xrange(2, 20))
 
     assert me() == imp()
 

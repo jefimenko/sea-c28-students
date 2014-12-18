@@ -28,8 +28,7 @@ class IterateMe_2(object):
     """
     About as simple an iterator as you can get:
 
-    returns the sequence of numbers from zero to 4
-    ( like xrange(4) )
+    returns the sequence of numbers from  start to stop-1
     """
     def __init__(self, start, stop, step=1):
         # Prevent invalid parameter input
@@ -43,29 +42,44 @@ class IterateMe_2(object):
             raise ValueError
 
         # Ensure valid range for positive step size
+        self.start = start
         if step > 0:
-            if start > stop:
+            if (start > stop):
                 self.stop = start
             else:
                 self.stop = stop
         # Ensure valid range for negative step size
         else:
             if (start < stop):
-                self.start = stop
+                self.stop = start
             else:
-                self.start = start
+                self.stop = stop
         self.step = step
-        self.current = start - 1
+        self.current = start - step
+
     def __iter__(self):
         return self
+
     def next(self):
         self.current += self.step
-        if self.current < self.stop:
-            return self.current
+        return self.check_to_keep_going()
+
+    # For incrementing iterations, test to see if strictly less than 
+    # stop value, for decrementing iterations, test to see if strictly 
+    # greater than stop value, and return value to continue iteration,
+    # otherwise raise StopIteration
+    def check_to_keep_going(self):
+        if self.step > 0:
+            if self.current < self.stop:
+                pass
+            else:
+                raise StopIteration
         else:
-            raise StopIteration
-
-
+            if self.current > self.stop:
+                pass
+            else:
+                raise StopIteration
+        return self.current
 
 if __name__ == "__main__":
 
