@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from rot13 import rot13
 
 def test_shift():

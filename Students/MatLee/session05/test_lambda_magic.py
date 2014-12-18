@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from lambda_magic import function_builder
 
 def test_has_lambdas():
