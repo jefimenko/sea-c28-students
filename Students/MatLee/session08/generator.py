@@ -25,5 +25,20 @@ def fib():
         current, next = next, current+next
 
 # Prime numbers
-class prime(object):
-    pass
+def prime():
+    current = 2
+    while True:
+        yield current
+        current += 1
+        # If a number is determined to be prime, the while for checking
+        # prime-ness ends, going back to the top of the infinite while loop,
+        # yielding the current prime value.
+        while notprime(current):
+            current += 1
+
+# Verify if a number is prime or not. As a soon as a number is
+# determined to be non-prime, return True
+def notprime(number):
+    for div in xrange(2, number):
+        if number % div is 0:
+            return True
