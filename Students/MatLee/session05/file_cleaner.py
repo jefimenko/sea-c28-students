@@ -36,10 +36,14 @@ except IOError:
     print u'File not found. Bye.'
     quit()
 
+# First version.
+# copy = []
+# for line in f:
+    # copy.append(line)
+# copy = map(str.strip, copy)
 
-copy = []
-for line in f:
-    copy.append(line)
+# Second version using list comprehension.
+copy = [line in f]
 copy = map(str.strip, copy)
 
 save_file(copy, f)
