@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import copy
+
 """
 Simple iterator examples
 """
@@ -35,11 +37,11 @@ class IterateMe_2(object):
         if not (isinstance(start, int)
                 and isinstance(stop, int)
                 and isinstance(step, int)):
-            raise TypeError
+            raise TypeError(u'All parameters given must be of type int')
 
         # Prevent step of size 0
         if not step:
-            raise ValueError
+            raise ValueError(u'Step size must be a non-zero int.')
 
         # Ensure valid range for positive step size
         self.start = start
@@ -58,7 +60,12 @@ class IterateMe_2(object):
         self.current = start - step
 
     def __iter__(self):
-        return self
+        # FOR HOMEWORK: create behavior similar to xrange() by passing
+        # a copy to be iterated through. At the expense of more memory
+        # usage, each attempt to iterate through an IterateMe_2 object
+        # begins at the start of a copy of a given instance, instead of
+        # where the last .next() call left off
+        return copy.copy(self)
 
     def next(self):
         self.current += self.step

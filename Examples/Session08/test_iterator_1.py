@@ -16,10 +16,32 @@ def test_step_size():
     assert numbers == result
 
 def test_decreasing():
+    numbers = [thing for thing in IterateMe_2(20, 2, -2)]
+    result = [thing for thing in xrange(20, 2, -2)]
+
+    assert numbers == result
+
+def test_alter_input_parameters():
     numbers = [thing for thing in IterateMe_2(2, 20, -2)]
     result = [thing for thing in xrange(2, 20, -2)]
 
     assert numbers == result
+
+    numbers = [thing for thing in IterateMe_2(15, 15, -1)]
+    result = [thing for thing in xrange(15, 15, -1)]
+
+    assert numbers == result
+
+    numbers = [thing for thing in IterateMe_2(20, 2, 3)]
+    result = [thing for thing in xrange(20, 2, 3)]
+
+    assert numbers == result
+
+    numbers = [thing for thing in IterateMe_2(15, 15, 1)]
+    result = [thing for thing in xrange(15, 15, 1)]
+
+    assert numbers == result
+
 
 def test_reset():
 
