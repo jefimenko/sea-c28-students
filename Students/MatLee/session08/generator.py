@@ -9,7 +9,6 @@ def intsum():
         current += 1
         sum += current
 
-
 # Doubler
 def doubler():
     current = 1
@@ -19,12 +18,11 @@ def doubler():
 
 # Fibonacci sequence
 def fib():
-    info = [1, 1]
-
+    current = 1
+    next = 1
     while True:
-        yield info[0]
-        info[0], info[1] = info[1], info[0] + info[1]
-
+        yield current
+        current, next = next, current+next
 
 # Prime numbers
 class prime(object):
