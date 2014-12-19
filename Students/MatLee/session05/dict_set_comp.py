@@ -25,10 +25,11 @@ s3 = {x for x in range(21) if not (x % 3)}
 s4 = {x for x in range(21) if not (x % 4)}
 
 
-s_all = set()
-for i in range(2, 5):
-    s_all = s_all.union({x for x in range(21) if not (x % i)})
+# Updated:
+s_all = []
+for item in range(2, 5):
+    s_all.append({x for x in range(21) if not (x % item)})
 print s_all
 
-d_all = {x for i in range(2, 5) for x in range(21) if not (x % i)}
+d_all = [{x for x in range(21) if not (x % item)} for item in range(2,5)]
 print d_all
