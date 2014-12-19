@@ -28,9 +28,8 @@ class IterateMe_1(object):
 
 class IterateMe_2(object):
     """
-    About as simple an iterator as you can get:
-
-    returns the sequence of numbers from  start to stop-1
+    Return the sequence of numbers from 'start' to 'stop-1' with step size
+    given by keyword argument 'step'.
     """
     def __init__(self, start, stop, step=1):
         # Prevent invalid parameter input
