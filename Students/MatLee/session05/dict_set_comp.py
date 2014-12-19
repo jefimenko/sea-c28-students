@@ -17,7 +17,7 @@ j = {x: hex(x)[2:] for x in range(16)}
 
 # Using dictionary comprehension, modify values in food_prefs to the number of
 # 'a's in the value.
-food_prefs = {thing: specific.count('a') + specific.count('A') for thing, specific in food_prefs.iteritems()}
+food_prefs = {thing: specific.lower().count(u'a') for thing, specific in food_prefs.iteritems()}
 
 
 s2 = {x for x in range(21) if not (x % 2)}
