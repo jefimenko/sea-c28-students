@@ -23,7 +23,7 @@ def writer(name, copy):
     f.close()
     return
 
-    
+
 try:
     filename = sys.argv[1]
 except IndexError:
@@ -36,11 +36,6 @@ except IOError:
     print u'File not found. Bye.'
     quit()
 
-# First version.
-# copy = []
-# for line in f:
-    # copy.append(line)
-# copy = map(str.strip, copy)
 
 # Second version using list comprehension.
 copy = [line in f]
