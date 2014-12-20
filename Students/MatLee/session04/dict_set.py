@@ -14,14 +14,15 @@ print "Mango" in a
 
 c = []
 for num in range(16):
-    c.append(hex(num)[2:])
+    c.append(hex(num))
 dec_hex = dict(zip(range(16), c))
 print dec_hex
 
 
 things = stuff.items()
-for b in range(len(things)):  
-    things[b] = (things[b][0], things[b][1].count('a'))
+for position, value in enumerate(things):
+    things[position] = (value[0], value[1].count('a'))
+
 
 stuff_a = dict(things)
 print stuff
@@ -39,20 +40,20 @@ for num in range(1,21):
         s3.add(num)
     if num % 4 is 0:
         s4.add(num)
-else:
-    print s2
-    print s3
-    print s4
+
+print s2
+print s3
+print s4
 
 print s3.issubset(s2)
 print s4.issubset(s2)
 
 
-letters = set('Python'[:])
+letters = set('Python')
 letters.add('i')
 print letters
 
-frozen = frozenset('marathon'[:])
+frozen = frozenset('marathon')
 print frozen
 
 print letters.union(frozen)
