@@ -29,42 +29,51 @@ def chunker(data):
         data.append('\n')
     return data
 
+def analyze(data):
+    """
+    Create a dictionary containing analysis of a text broken up into words.
+    """
+    # Create auxiliary symbol that will hold two words
+    # previous to current entry in data.
+    # Print out the list for files two or less words in length.
+    try:
+        temp = [data[0], data[1]]
+        data[2]
+    except IndexError:
+        print temp
+
+    analysis = dict()
+    # Sequences of three words are tabulated as tuples of leading two words as
+    # keys with a list holding all third words as the corresponding value.
+    # Grow analysis data, create new entries in the dictionary as needed.
+    for word in data[2:]:
+        try:
+            analysis[(temp[0], temp[1])].append(word)
+        except KeyError:
+            analysis[(temp[0], temp[1])] = [word]
+        temp[0], temp[1] = temp[1], temp[0]
+        temp[1] = word
+    return analysis
+
+def out_write(analysis):
+    """
+    Produce output based on the results of analyze().
+    """
+    temp = random.choice(analysis.keys())
+    temp = [temp[0], temp[1]]
+    print temp[0].title(),
+    print temp[1],
+
+    while analysis.has_key((temp[0], temp[1])):
+        n = random.choice(analysis[(temp[0], temp[1])])
+        if not n is '\n':
+            print n,
+        elif n is temp[1]:
+            print n
+        temp[0], temp[1] = temp[1], n
+
+
 data = read_data(FILE_NAME)
 data = chunker(data)
-
-analysis = dict()
-
-# Create auxiliary symbol that will hold two words
-# previous to current entry in data.
-# Print out the list for files two or less words in length.
-try:
-    temp = [data[0], data[1]]
-    data[2]
-except IndexError:
-    print temp
-
-# Sequences of three words are tabulated as tuples of leading two words as
-# keys with a list holding all third words as the corresponding value.
-# Grow analysis data, create new entries in the dictionary as needed.
-for word in data[2:]:
-    try:
-        analysis[(temp[0], temp[1])].append(word)
-    except KeyError:
-        analysis[(temp[0], temp[1])] = [word]
-    temp[0], temp[1] = temp[1], temp[0]
-    temp[1] = word
-
-# Produce and output results based on analysis
-temp = random.choice(analysis.keys())
-temp = [temp[0], temp[1]]
-print temp[0].title(),
-print temp[1],
-
-while analysis.has_key((temp[0], temp[1])):
-    n = random.choice(analysis[(temp[0], temp[1])])
-    if not n is '\n':
-        print n,
-    elif n is temp[1]:
-        print n
-    temp[0], temp[1] = temp[1], n
-
+analysis = analyze(data)
+out_write(analysis)
