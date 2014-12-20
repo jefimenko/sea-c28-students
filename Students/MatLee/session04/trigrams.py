@@ -5,7 +5,7 @@ import random
 FILE_NAME = 'sherlock_small.txt'
 #FILE_NAME = 'sherlock.txt'
 
-def read_data(file_name)
+def read_data(file_name):
     """
     Open a file and separate into 'chunks' delimited by '\n' characters.
     Return a list of the 'chunks'.
@@ -29,6 +29,8 @@ def chunker(data):
         data.append('\n')
     return data
 
+data = read_data(FILE_NAME)
+data = chunker(data)
 
 analysis = dict()
 
@@ -52,7 +54,7 @@ for word in data[2:]:
     temp[0], temp[1] = temp[1], temp[0]
     temp[1] = word
 
-
+# Produce and output results based on analysis
 temp = random.choice(analysis.keys())
 temp = [temp[0], temp[1]]
 print temp[0].title(),
@@ -66,5 +68,3 @@ while analysis.has_key((temp[0], temp[1])):
         print n
     temp[0], temp[1] = temp[1], n
 
-data = read_data(FILE_NAME)
-data = chunker(data)
