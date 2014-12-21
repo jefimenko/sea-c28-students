@@ -3,15 +3,18 @@ import io
 HISTORY = u'mailroom.txt'
 FORM_EMAIL = u'form_email.txt'
 
+MAIN_MENU = u'\n   Main Menu:\n(1) Send a Thank You.\n(2) Create a Report\n(3) Exit program.'
+THANK_YOU_MENU = u'\n   Thank You e-mail menu:\n(1) Enter full name of donor.\n(2) Enter \'list\' to show donor names\n(3) Return to main menu.'
+DONATION_MENU = u'\n(1) Input donation amount in dollars.\n(2) Return to the main menu.'
+
+
 def main():
+    """
+    """
     data = read_info()
-    
+
     while True:
-        print
-        print u'   Main Menu:'
-        print u'(1) Send a Thank You.'
-        print u'(2) Create a Report.'
-        print u'(3) Exit program.'
+        print MAIN_MENU
         a = safe_input(u'   ')
         if u'exit program' in a.lower():
             end(data)
@@ -24,6 +27,8 @@ def main():
 
 
 def safe_input(display=u''):
+    """
+    """
     try:
         return raw_input(display)
     except (EOFError, KeyboardInterrupt):
@@ -31,12 +36,10 @@ def safe_input(display=u''):
 
 
 def send(data):
+    """
+    """
     while True:
-        print
-        print u'   Thank You e-mail menu:'
-        print u'(1) Enter full name of donor.'
-        print u'(2) Enter \'list\' to show donor names.'
-        print u'(3) Return to main menu.'
+        print THANK_YOU_MENU
         b = safe_input(u'   ')
         if u'return to main menu' in b.lower():
             return
@@ -57,14 +60,14 @@ def send(data):
 
 # Prompt the user and take input until a positive number is given
 def valid_d(data):
+    """
+    """
     while True:
-        print
-        print u'(1) Input donation amount in dollars.'
-        print u'(2) Return to main menu.'
+        print DONATION_MENU
         a = safe_input(u'  $')
         if 'return to main menu' in a.lower():
             return
-        
+
         try:
             a = float(a)
         except ValueError:
@@ -76,6 +79,8 @@ def valid_d(data):
 
 
 def email(name, donation):
+    """
+    """
     f = open(FORM_EMAIL)
     form = f.read()
     f.close()
@@ -86,6 +91,8 @@ def email(name, donation):
 
 
 def report(data):
+    """
+    """
     header = (u'|Name:', u'|Total donations:', 
               u'|# of donations:', u'|Average amount per donation:')
     print
@@ -109,6 +116,8 @@ def report(data):
 # Read previously saved information out of a file into a dictionary.
 # Return an empty dictionary if there is no existing information.
 def read_info():
+    """
+    """
     try:
         f = open(HISTORY)
     except IOError:
@@ -116,11 +125,13 @@ def read_info():
         return dict()
     data = eval(f.read())
     f.close()
-    
+
     return data
 
 
-def end(data):  
+def end(data):
+    """
+    """
     save = open(HISTORY, 'w')
     save.write(str(data))
     save.flush()
