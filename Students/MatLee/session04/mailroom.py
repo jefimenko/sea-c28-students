@@ -3,9 +3,16 @@ import io
 HISTORY = u'mailroom.txt'
 FORM_EMAIL = u'form_email.txt'
 
-MAIN_MENU = u'\n   Main Menu:\n(1) Send a Thank You.\n(2) Create a Report\n(3) Exit program.'
-THANK_YOU_MENU = u'\n   Thank You e-mail menu:\n(1) Enter full name of donor.\n(2) Enter \'list\' to show donor names\n(3) Return to main menu.'
-DONATION_MENU = u'\n(1) Input donation amount in dollars.\n(2) Return to the main menu.'
+MAIN_MENU = ( u'\n   Main Menu:'
+             +u'\n(1) Send a Thank You.'
+             +u'\n(2) Create a Report'
+             +u'\n(3) Exit program.' )
+THANK_YOU_MENU = ( u'\n   Thank You e-mail menu:'
+                  +u'\n(1) Enter full name of donor.'
+                  +u'\n(2) Enter \'list\' to show donor names'
+                  +u'\n(3) Return to main menu.' )
+DONATION_MENU = ( u'\n(1) Input donation amount in dollars.'
+                 +u'\n(2) Return to main menu.' )
 
 
 def main():
@@ -15,7 +22,7 @@ def main():
 
     while True:
         print MAIN_MENU
-        a = safe_input(u'   ')
+        a = raw_input(u'   ')
         if u'exit program' in a.lower():
             end(data)
         elif u'create a report' in a.lower():
@@ -26,13 +33,7 @@ def main():
             print u'   Invalid input, please choose an entry from the menu.'
 
 
-def safe_input(display=u''):
-    """
-    """
-    try:
-        return raw_input(display)
-    except (EOFError, KeyboardInterrupt):
-        return None
+
 
 
 def send(data):
@@ -40,7 +41,7 @@ def send(data):
     """
     while True:
         print THANK_YOU_MENU
-        b = safe_input(u'   ')
+        b = raw_input(u'   ')
         if u'return to main menu' in b.lower():
             return
         elif u'list' in b.lower():
@@ -64,7 +65,7 @@ def valid_d(data):
     """
     while True:
         print DONATION_MENU
-        a = safe_input(u'  $')
+        a = raw_input(u'  $')
         if 'return to main menu' in a.lower():
             return
 
@@ -98,7 +99,6 @@ def report(data):
     print
     print u'%-20s%-15s%-16s%-29s'% header
     info = data.items()
-    print info[0][1]
     info = sorted(info, key=lambda c: sum(c[1]))
     info = info[::-1]
 
