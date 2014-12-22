@@ -23,11 +23,11 @@ def main():
     while True:
         print MAIN_MENU
         a = raw_input(u'   ')
-        if u'exit program' in a.lower():
+        if u'exit program' in a.lower() or u'3' == a:
             end(data)
-        elif u'create a report' in a.lower():
+        elif u'create a report' in a.lower() or u'2' == a:
             report(data)
-        elif u'send a thank you' in a.lower():
+        elif u'send a thank you' in a.lower() or u'1' == a:
             send(data)
         else:
             print u'   Invalid input, please choose an entry from the menu.'
@@ -42,9 +42,9 @@ def send(data):
     while True:
         print THANK_YOU_MENU
         b = raw_input(u'   ')
-        if u'return to main menu' in b.lower():
+        if u'return to main menu' in b.lower() or u'3' == b:
             return
-        elif u'list' in b.lower():
+        elif u'list' in b.lower() or u'2' == b:
             print
             for name in data.iterkeys():
                 print u' %s' % name
@@ -66,25 +66,31 @@ def valid_d(data):
     while True:
         print DONATION_MENU
         a = raw_input(u'  $')
-        if 'return to main menu' in a.lower():
+        if 'return to main menu' in a.lower() or u'2' == a:
             return
 
         try:
             a = float(a)
         except ValueError:
-            print 'u   Invalid input.'
+            print u'   Invalid input.'
             continue
 
         if a and (a > 0):
             return a
+        else:
+            print u'   Please input a positive amount.'
 
 
 def email(name, donation):
     """
     """
-    f = open(FORM_EMAIL)
-    form = f.read()
-    f.close()
+    try:
+        f = open(FORM_EMAIL)
+        form = f.read()
+    except IOError:
+        raise IOError
+    finally:
+        f.close()
     print
     print form % (name, donation)
     print
@@ -96,11 +102,10 @@ def report(data):
     """
     header = (u'|Name:', u'|Total donations:', 
               u'|# of donations:', u'|Average amount per donation:')
-    print
-    print u'%-20s%-15s%-16s%-29s'% header
+
+    print u'\n%-20s%-15s%-16s%-29s'% header
     info = data.items()
-    info = sorted(info, key=lambda c: sum(c[1]))
-    info = info[::-1]
+    info = sorted(info, key=lambda c: sum(c[1]), reverse=True)
 
     for donor, amounts, in info:
         total = sum(amounts)
@@ -120,11 +125,11 @@ def read_info():
     """
     try:
         f = open(HISTORY)
+        data = eval(f.read())
     except IOError:
+        raise IOError
+    finally:
         f.close()
-        return dict()
-    data = eval(f.read())
-    f.close()
 
     return data
 
@@ -132,10 +137,14 @@ def read_info():
 def end(data):
     """
     """
-    save = open(HISTORY, 'w')
-    save.write(str(data))
-    save.flush()
-    save.close()
+    try:
+        save = open(HISTORY, 'w')
+        save.write(str(data))
+        save.flush()
+    except IOError:
+        raise IOError
+    finally:
+        save.close()
     quit()
 
 
