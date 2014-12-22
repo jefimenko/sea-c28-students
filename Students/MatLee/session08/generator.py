@@ -9,6 +9,13 @@ def intsum():
         current += 1
         sum += current
 
+# Challenge accepted.
+def intsum2():
+    th_place = 1
+    while True:
+        yield (th_place - 1) * (th_place / 2.0)
+        th_place += 1
+
 # Doubler
 def doubler():
     current = 1
