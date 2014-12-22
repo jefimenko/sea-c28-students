@@ -17,6 +17,7 @@ DONATION_MENU = ( u'\n(1) Input donation amount in dollars.'
 
 def main():
     """
+    Display main menu and direct user to available courses of action.
     """
     data = read_info()
 
@@ -38,19 +39,29 @@ def main():
 
 def send(data):
     """
+    Send a thank you e-mail to a donor and log the amount donated.
     """
     while True:
         print THANK_YOU_MENU
         b = raw_input(u'   ')
+
         if u'return to main menu' in b.lower() or u'3' == b:
             return
         elif u'list' in b.lower() or u'2' == b:
             print
-            for name in data.iterkeys():
+            for name.title() in data.iterkeys():
                 print u' %s' % name
         else:
-            # Won't worry about validating names for now
-            # Create a new entry if non-existent
+            # Prevent only numbers from being passed as a name.
+            # Will not filter prevent a mix of numbers and letters from being
+            # taken as a name.
+            try:
+                b = int(b)
+                print u'   Please enter a name or valid menu option.'
+                continue
+            except ValueError:
+                pass
+
             amount = valid_d(data)
             if not amount:
                 return
