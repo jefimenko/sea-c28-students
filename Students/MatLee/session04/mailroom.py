@@ -12,7 +12,7 @@ THANK_YOU_MENU = ( u'\n   Thank You e-mail menu:'
                   +u'\n(2) Enter \'list\' to show donor names'
                   +u'\n(3) Return to main menu.' )
 DONATION_MENU = ( u'\n(1) Input donation amount in dollars.'
-                 +u'\n(2) Return to main menu.' )
+                 +u'\n(2) Return to main menu. *short menu input disallowed' )
 
 
 def main():
@@ -20,7 +20,7 @@ def main():
     Display main menu and direct user to available courses of action.
     """
     data = read_info()
-
+    print data
     while True:
         print MAIN_MENU
         a = raw_input(u'   ')
@@ -32,10 +32,6 @@ def main():
             send(data)
         else:
             print u'   Invalid input, please choose an entry from the menu.'
-
-
-
-
 
 def send(data):
     """
@@ -49,12 +45,12 @@ def send(data):
             return
         elif u'list' in b.lower() or u'2' == b:
             print
-            for name.title() in data.iterkeys():
+            for name in data.iterkeys():
                 print u' %s' % name
         else:
-            # Prevent only numbers from being passed as a name.
-            # Will not filter prevent a mix of numbers and letters from being
-            # taken as a name.
+            # Prevent entries of only numbers from being passed as a name.
+            # Will not filter prevent a mix of numbers and other characters
+            # from being taken as a name.
             try:
                 b = int(b)
                 print u'   Please enter a name or valid menu option.'
@@ -65,19 +61,22 @@ def send(data):
             amount = valid_d(data)
             if not amount:
                 return
-            new = data.setdefault(b, [])
-            new.append(amount)
-            email(b, new[-1])
+            # Sets all names to title case.
+            entry = data.setdefault(b.title(), [])
+            entry.append(amount)
+            email(b, entry[-1])
             return
 
-# Prompt the user and take input until a positive number is given
 def valid_d(data):
     """
+    Prompt user and take input until a positive number is given.
     """
     while True:
         print DONATION_MENU
         a = raw_input(u'  $')
-        if 'return to main menu' in a.lower() or u'2' == a:
+        # Disallow shorter input of option number, to allow option of
+        # accepting a donation equal to 2
+        if 'return to main menu' in a.lower():
             return
 
         try:
@@ -91,9 +90,9 @@ def valid_d(data):
         else:
             print u'   Please input a positive amount.'
 
-
 def email(name, donation):
     """
+    Read a form email from a text file.
     """
     try:
         f = open(FORM_EMAIL)
@@ -107,9 +106,9 @@ def email(name, donation):
     print
     return
 
-
 def report(data):
     """
+    Print a report of donors and information about donation history.
     """
     header = (u'|Name:', u'|Total donations:', 
               u'|# of donations:', u'|Average amount per donation:')
@@ -128,25 +127,29 @@ def report(data):
 
     return
 
-
-# Read previously saved information out of a file into a dictionary.
-# Return an empty dictionary if there is no existing information.
 def read_info():
     """
+    Open and read a file containing donation history.
+    If the file fails to evaluate as a dictionary or is improperly formatted,
+    a new history is created and the existing file is overwritten upon exiting
+    the program.
     """
     try:
         f = open(HISTORY)
-        data = eval(f.read())
+        data = dict( eval(f.read()) )
     except IOError:
         raise IOError
+    except (AttributeError, NameError, SyntaxError, ValueError):
+        print u'   Improperly formatted donor history.'
+        data = dict()
     finally:
         f.close()
 
     return data
 
-
 def end(data):
     """
+    Save donor information to a file and exit the program.
     """
     try:
         save = open(HISTORY, 'w')

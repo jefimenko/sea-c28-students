@@ -1,1 +1,1 @@
-{'Bob Travant': [1.0, 2.0, 1234.44], 'Cheryl Piezzo': [25.01, 33.45], 'Christofer Hofner': [1000000.0, 0.01], 'Grand Nguyen': [100000.0], 'Andrew Dirc': [700.0, 100.0], 'Ingrid H. Pontif': [100.0]}
+{'Bob Travant': [1.0, 2.0, 1234.44], 'Cheryl Piezzo': [25.01, 33.45], 'Andrew Dirc': [700.0, 100.0], 'Christofer Hofner': [1000000.0, 0.01], 'Grand Nguyen': [100000.0], 'Ingrid H. Pontif': [100.0]}
