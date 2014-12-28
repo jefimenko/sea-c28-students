@@ -1,4 +1,6 @@
 class Element(object):
+    # opening_tag = (u'<', u'>')
+    # closing_tag = (u'<', u'/>')
     opening_tag = u'<>'
     closing_tag = u'</>'
 
@@ -9,8 +11,12 @@ class Element(object):
         self.content = []
         if text:
             self.content.append(text)
+
         if kwargs:
-            self_closing = self.opening_tag[-2] == u'/'
+            self_closing = not bool(self.closing_tag)
+            # if self_closing:
+                
+
             if self_closing:
                 self.opening_tag = self.opening_tag[:-3]
             else:
@@ -27,7 +33,7 @@ class Element(object):
     # Render information in html element in a nicely formatted way.
     # Indentation is determined by keyword argument 'ind', while new_line
     # allows an element to be rendered in one line if given an empty string.
-    def render(self, file_out, ind=u'', depth=1, new_line=u'\n'):
+    def render(self, file_out, ind=u'    ', depth=1, new_line=u'\n'):
         display = []
         file_out.write( new_line + ind*(depth-1) + self.opening_tag )
         for item in self.content:
