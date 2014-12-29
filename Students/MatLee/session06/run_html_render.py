@@ -23,7 +23,7 @@ def render(page, filename):
    """
 
    f = cStringIO.StringIO()
-   page.render(f, u'    ')
+   page.render(f)
 
    f.reset()
 
@@ -97,8 +97,8 @@ page.append(body)
 
 render(page, u"test_html_output4.html")
 
-# # Step 5
-# #########
+# Step 5
+#########
 
 page = hr.Html()
 
@@ -118,8 +118,8 @@ page.append(body)
 
 render(page, u"test_html_output5.html")
 
-# # Step 6
-# #########
+# Step 6
+#########
 
 page = hr.Html()
 
@@ -180,8 +180,8 @@ page.append(body)
 
 render(page, u"test_html_output7.html")
 
-# # Step 8
-# ########
+# Step 8
+########
 
 page = hr.Html()
 
