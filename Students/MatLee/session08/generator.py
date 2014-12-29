@@ -1,3 +1,5 @@
+from math import sqrt
+
 # Sum of integers
 # Yield current value, then at the following next()
 # call, update values, and then yield updated sum value.
@@ -13,7 +15,7 @@ def intsum():
 def intsum2():
     th_place = 1
     while True:
-        yield (th_place - 1) * (th_place / 2.0)
+        yield int((th_place - 1) * (th_place / 2.0))
         th_place += 1
 
 # Doubler
