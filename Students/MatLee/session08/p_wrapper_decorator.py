@@ -3,8 +3,8 @@ def p_wrapper(func):
     Takes a function that returns a string and wraps it in paragraph
     tags using string formatting.
     """
-    def inner(text):
-        return u'<p> {0} </p>'.format(func(text))
+    def inner(*args):
+        return u'<p> {0} </p>'.format(func(args))
     return inner
 
 @p_wrapper
