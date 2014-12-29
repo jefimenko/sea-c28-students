@@ -48,12 +48,11 @@ class IterateMe_2(object):
         self.current = start - step
 
     def __iter__(self):
-        # FOR HOMEWORK: create behavior similar to xrange() by passing
-        # a copy to be iterated through. At the expense of more memory
-        # usage, each attempt to iterate through an IterateMe_2 object
-        # begins at the start of a copy of a given instance, instead of
-        # where the last .next() call left off
-        return copy.copy(self)
+        # FOR HOMEWORK: create behaviour similar to xrange().
+        # Return an instance with the current iterator value reset
+        # to begin iteration at the beginning of the sequence.
+        self.current = self.start - self.step
+        return self
 
     def next(self):
         self.current += self.step
