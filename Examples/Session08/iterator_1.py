@@ -57,13 +57,13 @@ class IterateMe_2(object):
 
     def next(self):
         self.current += self.step
-        return self.check_to_keep_going()
+        return self._check_to_keep_going()
 
     # For incrementing iterations, test to see if strictly less than 
     # stop value, for decrementing iterations, test to see if strictly 
     # greater than stop value, and return value to continue iteration,
     # otherwise raise StopIteration
-    def check_to_keep_going(self):
+    def _check_to_keep_going(self):
         if self.step > 0:
             if self.current < self.stop:
                 pass
