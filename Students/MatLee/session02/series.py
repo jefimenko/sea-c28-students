@@ -26,12 +26,11 @@ def sum_series(n, a=0, b=1):
         for x in range(n-2):
             series[0], series[1] = series[1], series[0]
             series[1] = series[0] + series[1]
-<<<<<<< HEAD
+
             print id(series),
             print id(series[0]),
             print id(series[1])
-=======
->>>>>>> 3673785becdfd83be0b12c217583a222122c9c9a
+
         return series[1]
 
         
