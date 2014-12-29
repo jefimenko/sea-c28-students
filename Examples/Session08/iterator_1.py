@@ -42,19 +42,8 @@ class IterateMe_2(object):
         if not step:
             raise ValueError(u'Step size must be a non-zero int.')
 
-        # Ensure valid range for positive step size
         self.start = start
-        if step > 0:
-            if (start > stop):
-                self.stop = start
-            else:
-                self.stop = stop
-        # Ensure valid range for negative step size
-        else:
-            if (start < stop):
-                self.stop = start
-            else:
-                self.stop = stop
+        self.stop = stop
         self.step = step
         self.current = start - step
 
