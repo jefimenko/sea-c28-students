@@ -4,7 +4,7 @@ import time
 
 class timed_manager(object):
 
-    def __init__(self, something_filelike=None):
+    def __init__(self, something_filelike=sys.stdout):
         self.something_filelike = something_filelike
 
     def __enter__(self):
@@ -14,16 +14,11 @@ class timed_manager(object):
         elapsed = time.time() - self.start
         log = u'Elapsed time: {0}\n'.format(elapsed)
 
-        # Only allow writing/creating a log of times if a given input
-        # is a string that ends in '.txt'. Defaults to writing to consoleWill
-        # using sys.stdout if no valid filename determined.
-        # Will break if given non-string input.
-        if (self.something_filelike 
-                and u'.txt' in self.something_filelike[-4:]):
-            # Create/open a log and write to the file.
-            with open(self.something_filelike, 'a') as f:
-                f.write(log)
+        # Attempt writing log to a file-like object.
+        try:
+            self.something_filelike.write(log)
             print log
-        else:
+        except AttributeError:
+            print u'Object given is not file-like.'
             sys.stdout.write(log)
         return False
