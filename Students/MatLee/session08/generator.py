@@ -31,7 +31,7 @@ def fib():
     next = 1
     while True:
         yield current
-        current, next = next, current+next
+        current, next = next, current + next
 
 # Prime numbers
 def prime():
@@ -48,6 +48,6 @@ def prime():
 # Verify if a number is prime or not. As a soon as a number is
 # determined to be non-prime, return True
 def notprime(number):
-    for div in xrange(2, number):
+    for div in xrange(2, int(sqrt(number)+1)):
         if number % div is 0:
             return True
